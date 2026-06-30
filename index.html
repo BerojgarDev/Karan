@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images/love.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        .container {
+            justify-content: start;
+            align-items: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 60px;
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff3366;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.6);
+            padding: 0 15px;
+        }
+
+        .container p {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            padding: 0 25px;
+            color: rgba(255, 255, 255, 0.85);
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container button {
+            font-size: 1.4rem;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            position: absolute;
+            user-select: none;
+            /* Prevents text selection on mobile tap */
+            touch-action: none;
+            /* Prevents zooming/scrolling glitches on fast mobile taps */
+            transition: transform 0.1s ease, background-color 0.2s ease;
+        }
+
+        /* Perfectly centered starting positions */
+        #yes {
+            background-color: rgb(0, 255, 0);
+            color: white;
+            top: 70%;
+            left: 35%;
+            transform: translate(-50%, -50%);
+        }
+
+        #no {
+            background-color: rgb(255, 0, 0);
+            color: white;
+            top: 70%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+            /* Smooth sliding when it escapes */
+            transition: left 0.2s ease, top 0.2s ease, background-color 0.2s ease;
+        }
+
+        #yes:hover {
+            background-color: rgb(100, 200, 100);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* MOBILE MEDIA QUERY: Automatically applies when screen width is under 480px */
+        @media (max-width: 480px) {
+            .container {
+                padding-top: 40px;
+            }
+
+            .container h1 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .container p {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+                padding: 0 15px;
+            }
+
+            .container button {
+                font-size: 1.2rem;
+                padding: 0.7rem 1.5rem;
+            }
+
+            #yes {
+                left: 30%;
+                top: 75%;
+            }
+
+            #no {
+                left: 70%;
+                top: 75%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="container">
+            <h1>You're My Everything!</h1>
+            <p>Before I met you, I never knew what it was like to smile for no reason.</p>
+            <p>I'm so in love with you.</p>
+            <p>Will you be my forever?</p>
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+        <audio id="bg-music" src="music/Maya.mp3" loop></audio>
+    </section>
+
+    <footer>
+        <div
+            style="position: absolute; bottom: 15px; width: 100%; text-align: center; font-family: sans-serif; font-size: 0.8rem; color: rgba(255, 255, 255, 0.3); z-index: 10;">
+            Developed by <a href="https://berojgar-liard.vercel.app"
+                style="color: rgba(255, 255, 255, 0.5); text-decoration: none;">Berojgar</a>
+        </div>
+    </footer>
+
+    <script>
+        const yesBtn = document.getElementById('yes');
+        const noBtn = document.getElementById('no');
+        const container = document.querySelector('.container');
+        const music = document.getElementById('bg-music');
+
+        // Yes Button Action
+        yesBtn.addEventListener('click', () => {
+            music.play().catch(e => console.log(e));
+
+            container.innerHTML = `
+                <h1 style="color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.6); font-size: 2rem;">I knew it! 🎉</h1>
+                <p style="font-size: 1.2rem;">I knew you couldn't resist that runaway button forever.</p>
+                <p style="font-size: 1.2rem; font-weight: bold; margin-top: 25px; color: #fff;">
+                    So... are we officially celebrating this with a coffee date next week? ☕✨
+                </p>
+                <div style="margin-top: 25px; font-size: 0.9rem; color: #aaa;">
+                    (Let me know on Instagram!)
+                </div>
+            `;
+
+            if (noBtn) noBtn.remove();
+        });
+
+        // Backup plan if they somehow click No
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('I love you too!');
+        });
+
+        // Combined Runaway function for Desktop & Mobile
+        function escapeButton(e) {
+            // Stop phone from triggering click events after a touch
+            if (e.type === 'touchstart') e.preventDefault();
+
+            // Calculate boundary space safely so button stays fully on screen
+            const padding = 20;
+            const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+            // Generate random positions ensuring they fit inside limits
+            let randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
+            let randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
+
+            // Strip out translate positioning center rule
+            noBtn.style.transform = 'none';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        // Desktop hover escape
+        noBtn.addEventListener('mouseover', escapeButton);
+        // Mobile tap/touch escape
+        noBtn.addEventListener('touchstart', escapeButton);
+
+        // Global browser interaction unlock for music
+        function playAudio() {
+            music.play().then(() => {
+                document.removeEventListener('click', playAudio);
+                document.removeEventListener('touchstart', playAudio);
+                document.removeEventListener('keydown', playAudio);
+            }).catch(error => {
+                console.log("Autoplay waiting for interaction...", error);
+            });
+        }
+
+        document.addEventListener('click', playAudio);
+        document.addEventListener('touchstart', playAudio);
+        document.addEventListener('keydown', playAudio);
+    </script>
+</body>
+
+</html>
