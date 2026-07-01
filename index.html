@@ -38,6 +38,8 @@
             flex-direction: column;
             padding-top: 60px;
             text-align: center;
+            position: relative;
+            z-index: 5;
         }
 
         .container h1 {
@@ -55,7 +57,6 @@
             padding: 0 25px;
             color: rgba(255, 255, 255, 0.85);
             text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .container button {
@@ -66,14 +67,12 @@
             cursor: pointer;
             position: absolute;
             user-select: none;
-            /* Prevents text selection on mobile tap */
             touch-action: none;
-            /* Prevents zooming/scrolling glitches on fast mobile taps */
             transition: transform 0.1s ease, background-color 0.2s ease;
         }
 
         /* Perfectly centered starting positions */
-        #yes {
+        #yes, .success-trigger-left {
             background-color: rgb(0, 255, 0);
             color: white;
             top: 70%;
@@ -81,13 +80,12 @@
             transform: translate(-50%, -50%);
         }
 
-        #yes:hover,
-        #yes-1:hover {
+        #yes:hover, #yes-1:hover, .success-trigger-left:hover, .success-trigger-right:hover {
             background-color: rgb(100, 200, 100);
-            transform: translate(calc(-50% + 15px), calc(-50% + 15px)) scale(1.1);
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
-        #yes-1 {
+        #yes-1, .success-trigger-right {
             background-color: rgb(0, 255, 0);
             color: white;
             top: 70%;
@@ -101,97 +99,64 @@
             top: 70%;
             left: 65%;
             transform: translate(-50%, -50%);
-            /* Smooth sliding when it escapes */
             transition: left 0.2s ease, top 0.2s ease, background-color 0.2s ease;
         }
 
         #know-me {
-            background-color: rgb(255, 0, 0);
+            background-color: rgb(0, 150, 255);
             color: white;
-            top: 70%;
-            left: 65%;
+            top: 85%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            /* Smooth sliding when it escapes */
-            transition: left 0.2s ease, top 0.2s ease, background-color 0.2s ease;
-            font-size: 1rem;
+            font-size: 1.1rem;
             display: none;
+            padding: 0.6rem 1.5rem;
+            width: max-content;
+            max-width: 90%;
         }
 
-        .heart,
-        .heart-1,
-        .heart-2,
-        .heart-3,
-        .heart-4 {
+        /* Floating Background Sprites */
+        .heart, .heart-1, .heart-2, .heart-3, .heart-4 {
             position: absolute;
             z-index: 1;
             pointer-events: none;
         }
 
-        .heart {
-            top: -50px;
-            left: 50%;
-            opacity: 80%;
-            animation: fallDown 3s linear infinite;
-        }
+        .heart { left: 50%; animation: fallDown 3s linear infinite; }
+        .heart-1 { left: 35%; animation: fallDown 3.5s linear infinite; }
+        .heart-2 { left: 20%; animation: fallDown 2.5s linear infinite; }
+        .heart-3 { left: 65%; animation: fallDown 4s linear infinite; }
+        .heart-4 { left: 80%; animation: fallDown 2s linear infinite; }
 
-        .heart-1 {
-            top: -50px;
-            left: 35%;
-            opacity: 60%;
-            animation: fallDown 3.5s linear infinite;
-        }
-
-        .heart-2 {
-            top: -50px;
-            left: 20%;
-            opacity: 70%;
-            animation: fallDown 2.5s linear infinite;
-        }
-
-        .heart-3 {
-            top: -50px;
-            left: 65%;
-            opacity: 40%;
-            animation: fallDown 4s linear infinite;
-        }
-
-        .heart-4 {
-            top: -50px;
-            left: 80%;
-            opacity: 50%;
-            animation: fallDown 2s linear infinite;
-        }
-
-        /* Define the falling movement */
         @keyframes fallDown {
             0% {
-                top: -50px;
-                transform: translateX(0);
+                top: -100px;
+                transform: rotate(-45deg) scale(0.5);
+                opacity: 0;
             }
-
+            15% { opacity: 0.5; }
             100% {
                 top: 100vh;
-                /* Fall past the bottom edge of the screen */
-                transform: translateX(20px);
-                /* Slight drift to the side */
+                transform: rotate(-45deg) translateX(20px) scale(0.5);
+                opacity: 0;
             }
         }
 
-        /* MOBILE MEDIA QUERY: Automatically applies when screen width is under 480px */
+        /* MOBILE MEDIA QUERY: Completely overrides positioning vectors for clean mobile safety */
         @media (max-width: 480px) {
             .container {
-                padding-top: 40px;
+                padding-top: 50px;
             }
 
             .container h1 {
-                font-size: 1.8rem;
+                font-size: 1.9rem;
                 margin-bottom: 15px;
             }
 
             .container p {
-                font-size: 1.1rem;
-                margin-bottom: 10px;
-                padding: 0 15px;
+                font-size: 1.15rem;
+                margin-bottom: 12px;
+                padding: 0 20px;
             }
 
             .container button {
@@ -199,50 +164,35 @@
                 padding: 0.7rem 1.5rem;
             }
 
-            #yes {
+            #yes, .success-trigger-left {
                 left: 30%;
-                top: 75%;
+                top: 72%;
+                transform: translate(-50%, -50%);
             }
 
-            #no {
+            #no, #yes-1, .success-trigger-right {
                 left: 70%;
-                top: 75%;
+                top: 72%;
+                transform: translate(-50%, -50%);
+            }
+
+            #know-me {
+                top: 85%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="heart">
-        <svg viewBox="0 0 24 24" width="85" height="85" fill="red">
-            <path
-                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
-    </div>
-    <div class="heart-1">
-        <svg viewBox="0 0 24 24" width="100" height="100" fill="red">
-            <path
-                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
-    </div>
-    <div class="heart-2">
-        <svg viewBox="0 0 24 24" width="90" height="90" fill="red">
-            <path
-                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
-    </div>
-    <div class="heart-3">
-        <svg viewBox="0 0 24 24" width="50" height="50" fill="red">
-            <path
-                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
-    </div>
-    <div class="heart-4">
-        <svg viewBox="0 0 24 24" width="75" height="75" fill="red">
-            <path
-                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-        </svg>
-    </div>
+    <div class="heart"><svg viewBox="0 0 24 24" width="60" height="60" fill="rgba(255,0,50,0.4)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+    <div class="heart-1"><svg viewBox="0 0 24 24" width="70" height="70" fill="rgba(255,0,50,0.3)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+    <div class="heart-2"><svg viewBox="0 0 24 24" width="50" height="50" fill="rgba(255,0,50,0.35)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+    <div class="heart-3"><svg viewBox="0 0 24 24" width="45" height="45" fill="rgba(255,0,50,0.25)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+    <div class="heart-4"><svg viewBox="0 0 24 24" width="55" height="55" fill="rgba(255,0,50,0.3)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+
     <section>
         <div class="container">
             <h1>You're My Everything!</h1>
@@ -257,10 +207,8 @@
     </section>
 
     <footer>
-        <div
-            style="position: absolute; bottom: 15px; width: 100%; text-align: center; font-family: sans-serif; font-size: 0.8rem; color: rgba(255, 255, 255, 0.3); z-index: 10;">
-            Developed by <a href="https://berojgar-liard.vercel.app"
-                style="color: rgba(255, 255, 255, 0.5); text-decoration: none;">Berojgar</a>
+        <div style="position: absolute; bottom: 15px; width: 100%; text-align: center; font-family: sans-serif; font-size: 0.8rem; color: rgba(255, 255, 255, 0.3); z-index: 10;">
+            Developed by <a href="https://berojgar-liard.vercel.app" target="_blank" style="color: rgba(255, 255, 255, 0.5); text-decoration: none; font-weight: bold;">Berojgar</a>
         </div>
     </footer>
 
@@ -271,7 +219,6 @@
         const music = document.getElementById('bg-music');
         let timeoutId = null;
 
-        // Unified Success Function
         function launchSuccessScreen() {
             music.play().catch(e => console.log(e));
             container.innerHTML = `
@@ -282,19 +229,20 @@
                 </p>
                 <div style="margin-top: 25px; font-size: 1.1rem;">
                     <a href="https://www.instagram.com/direct/inbox/" target="_blank" style="color: #ff3366; text-decoration: none; font-weight: bold; text-shadow: 0 0 5px rgba(255,51,102,0.4);">
-<i class="fab fa-instagram" style="margin-right: 5px;"></i>(Let me know on Instagram!)                    </a>
+                        <i class="fab fa-instagram" style="margin-right: 5px;"></i>(Let me know on Instagram!)
+                    </a>
                 </div>
             `;
+            if (noBtn) noBtn.remove();
         }
 
-        // Global Event Delegation to catch dynamic button clicks reliably
+        // Global delegation catches standard or dynamic success clicks smoothly
         container.addEventListener('click', (e) => {
-            if (e.target && (e.target.id === 'yes' || e.target.id === 'yes-1')) {
+            if (e.target && (e.target.id === 'yes' || e.target.id === 'yes-1' || e.target.classList.contains('success-trigger-left') || e.target.classList.contains('success-trigger-right'))) {
                 launchSuccessScreen();
             }
         });
 
-        // Backup static No handler
         if (noBtn) {
             noBtn.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -302,11 +250,10 @@
             });
         }
 
-        // Runaway escape execution
         function escapeButton(e) {
             if (e.type === 'touchstart') e.preventDefault();
 
-            const padding = 20;
+            const padding = 25;
             const maxX = window.innerWidth - noBtn.offsetWidth - padding;
             const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
@@ -317,7 +264,6 @@
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
 
-            // Timer triggers the reveal block safely after 5 seconds of interaction
             if (!timeoutId) {
                 timeoutId = setTimeout(() => {
                     knowMe.style.display = "block";
@@ -328,19 +274,17 @@
         noBtn.addEventListener('mouseover', escapeButton);
         noBtn.addEventListener('touchstart', escapeButton);
 
-        // Audio Activation
         function playAudio() {
             music.play().then(() => {
                 document.removeEventListener('click', playAudio);
                 document.removeEventListener('touchstart', playAudio);
                 document.removeEventListener('keydown', playAudio);
-            }).catch(error => console.log("Interaction required", error));
+            }).catch(error => console.log("Interaction lock active", error));
         }
         document.addEventListener('click', playAudio);
         document.addEventListener('touchstart', playAudio);
         document.addEventListener('keydown', playAudio);
 
-        // Secondary pathway handler
         knowMe.addEventListener('click', () => {
             music.play().catch(e => console.log(e));
             container.innerHTML = `
@@ -349,8 +293,8 @@
                 <p>You can ask me any question there, you know I hate lying.</p>
                 <p>(You can choose the place)</p>
                 <p style="margin-bottom: 40px;">So what do you say? 😉</p>
-                <button id="yes" class="success-trigger">Yess!</button>
-                <button id="yes-1" class="success-trigger">Ofcourse!!!</button>
+                <button id="yes" class="success-trigger-left">Yess!</button>
+                <button id="yes-1" class="success-trigger-right">Ofcourse!!!</button>
             `;
         });
     </script>
