@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -17,6 +18,7 @@
             height: 100%;
             overflow: hidden;
             background-color: #000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         section {
@@ -44,6 +46,7 @@
             color: #ff3366;
             text-shadow: 0 0 10px rgba(255, 51, 102, 0.6);
             padding: 0 15px;
+            font-family: 'Arial', sans-serif;
         }
 
         .container p {
@@ -78,6 +81,20 @@
             transform: translate(-50%, -50%);
         }
 
+        #yes:hover,
+        #yes-1:hover {
+            background-color: rgb(100, 200, 100);
+            transform: translate(calc(-50% + 15px), calc(-50% + 15px)) scale(1.1);
+        }
+
+        #yes-1 {
+            background-color: rgb(0, 255, 0);
+            color: white;
+            top: 70%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+        }
+
         #no {
             background-color: rgb(255, 0, 0);
             color: white;
@@ -88,9 +105,76 @@
             transition: left 0.2s ease, top 0.2s ease, background-color 0.2s ease;
         }
 
-        #yes:hover {
-            background-color: rgb(100, 200, 100);
-            transform: translate(-50%, -50%) scale(1.1);
+        #know-me {
+            background-color: rgb(255, 0, 0);
+            color: white;
+            top: 70%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+            /* Smooth sliding when it escapes */
+            transition: left 0.2s ease, top 0.2s ease, background-color 0.2s ease;
+            font-size: 1rem;
+            display: none;
+        }
+
+        .heart,
+        .heart-1,
+        .heart-2,
+        .heart-3,
+        .heart-4 {
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .heart {
+            top: -50px;
+            left: 50%;
+            opacity: 80%;
+            animation: fallDown 3s linear infinite;
+        }
+
+        .heart-1 {
+            top: -50px;
+            left: 35%;
+            opacity: 60%;
+            animation: fallDown 3.5s linear infinite;
+        }
+
+        .heart-2 {
+            top: -50px;
+            left: 20%;
+            opacity: 70%;
+            animation: fallDown 2.5s linear infinite;
+        }
+
+        .heart-3 {
+            top: -50px;
+            left: 65%;
+            opacity: 40%;
+            animation: fallDown 4s linear infinite;
+        }
+
+        .heart-4 {
+            top: -50px;
+            left: 80%;
+            opacity: 50%;
+            animation: fallDown 2s linear infinite;
+        }
+
+        /* Define the falling movement */
+        @keyframes fallDown {
+            0% {
+                top: -50px;
+                transform: translateX(0);
+            }
+
+            100% {
+                top: 100vh;
+                /* Fall past the bottom edge of the screen */
+                transform: translateX(20px);
+                /* Slight drift to the side */
+            }
         }
 
         /* MOBILE MEDIA QUERY: Automatically applies when screen width is under 480px */
@@ -129,6 +213,36 @@
 </head>
 
 <body>
+    <div class="heart">
+        <svg viewBox="0 0 24 24" width="85" height="85" fill="red">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+    </div>
+    <div class="heart-1">
+        <svg viewBox="0 0 24 24" width="100" height="100" fill="red">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+    </div>
+    <div class="heart-2">
+        <svg viewBox="0 0 24 24" width="90" height="90" fill="red">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+    </div>
+    <div class="heart-3">
+        <svg viewBox="0 0 24 24" width="50" height="50" fill="red">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+    </div>
+    <div class="heart-4">
+        <svg viewBox="0 0 24 24" width="75" height="75" fill="red">
+            <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+    </div>
     <section>
         <div class="container">
             <h1>You're My Everything!</h1>
@@ -137,6 +251,7 @@
             <p>Will you be my forever?</p>
             <button id="yes">Yes</button>
             <button id="no">No</button>
+            <button id="know-me">Wanna know more about me?</button>
         </div>
         <audio id="bg-music" src="music/Maya.mp3" loop></audio>
     </section>
@@ -150,74 +265,94 @@
     </footer>
 
     <script>
-        const yesBtn = document.getElementById('yes');
         const noBtn = document.getElementById('no');
+        const knowMe = document.getElementById('know-me');
         const container = document.querySelector('.container');
         const music = document.getElementById('bg-music');
+        let timeoutId = null;
 
-        // Yes Button Action
-        yesBtn.addEventListener('click', () => {
+        // Unified Success Function
+        function launchSuccessScreen() {
             music.play().catch(e => console.log(e));
-
             container.innerHTML = `
                 <h1 style="color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.6); font-size: 2rem;">I knew it! 🎉</h1>
-                <p style="font-size: 1.2rem;">I knew you couldn't resist that runaway button forever.</p>
+                <p style="font-size: 1.2rem; font-weight: 600;">I knew you couldn't resist that runaway button forever.</p>
                 <p style="font-size: 1.2rem; font-weight: bold; margin-top: 25px; color: #fff;">
                     So... are we officially celebrating this with a coffee date next week? ☕✨
                 </p>
-                <div style="margin-top: 25px; font-size: 0.9rem; color: #aaa;">
-                    (Let me know on Instagram!)
+                <div style="margin-top: 25px; font-size: 1.1rem;">
+                    <a href="https://www.instagram.com/direct/inbox/" target="_blank" style="color: #ff3366; text-decoration: none; font-weight: bold; text-shadow: 0 0 5px rgba(255,51,102,0.4);">
+<i class="fab fa-instagram" style="margin-right: 5px;"></i>(Let me know on Instagram!)                    </a>
                 </div>
             `;
+        }
 
-            if (noBtn) noBtn.remove();
+        // Global Event Delegation to catch dynamic button clicks reliably
+        container.addEventListener('click', (e) => {
+            if (e.target && (e.target.id === 'yes' || e.target.id === 'yes-1')) {
+                launchSuccessScreen();
+            }
         });
 
-        // Backup plan if they somehow click No
-        noBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('I love you too!');
-        });
+        // Backup static No handler
+        if (noBtn) {
+            noBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('But I still love you!');
+            });
+        }
 
-        // Combined Runaway function for Desktop & Mobile
+        // Runaway escape execution
         function escapeButton(e) {
-            // Stop phone from triggering click events after a touch
             if (e.type === 'touchstart') e.preventDefault();
 
-            // Calculate boundary space safely so button stays fully on screen
             const padding = 20;
             const maxX = window.innerWidth - noBtn.offsetWidth - padding;
             const maxY = window.innerHeight - noBtn.offsetHeight - padding;
 
-            // Generate random positions ensuring they fit inside limits
             let randomX = Math.floor(Math.random() * (maxX - padding)) + padding;
             let randomY = Math.floor(Math.random() * (maxY - padding)) + padding;
 
-            // Strip out translate positioning center rule
             noBtn.style.transform = 'none';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
+
+            // Timer triggers the reveal block safely after 5 seconds of interaction
+            if (!timeoutId) {
+                timeoutId = setTimeout(() => {
+                    knowMe.style.display = "block";
+                }, 5000);
+            }
         }
 
-        // Desktop hover escape
         noBtn.addEventListener('mouseover', escapeButton);
-        // Mobile tap/touch escape
         noBtn.addEventListener('touchstart', escapeButton);
 
-        // Global browser interaction unlock for music
+        // Audio Activation
         function playAudio() {
             music.play().then(() => {
                 document.removeEventListener('click', playAudio);
                 document.removeEventListener('touchstart', playAudio);
                 document.removeEventListener('keydown', playAudio);
-            }).catch(error => {
-                console.log("Autoplay waiting for interaction...", error);
-            });
+            }).catch(error => console.log("Interaction required", error));
         }
-
         document.addEventListener('click', playAudio);
         document.addEventListener('touchstart', playAudio);
         document.addEventListener('keydown', playAudio);
+
+        // Secondary pathway handler
+        knowMe.addEventListener('click', () => {
+            music.play().catch(e => console.log(e));
+            container.innerHTML = `
+                <h1>You really wanna know me?</h1>
+                <p>Let's catchup and talk more over coffee/tea.</p>
+                <p>You can ask me any question there, you know I hate lying.</p>
+                <p>(You can choose the place)</p>
+                <p style="margin-bottom: 40px;">So what do you say? 😉</p>
+                <button id="yes" class="success-trigger">Yess!</button>
+                <button id="yes-1" class="success-trigger">Ofcourse!!!</button>
+            `;
+        });
     </script>
 </body>
 
